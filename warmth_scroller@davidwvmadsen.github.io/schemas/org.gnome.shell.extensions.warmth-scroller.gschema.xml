@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.warmth-scroller" path="/org/gnome/shell/extensions/warmth-scroller/">
+    <key name="modifier-key" type="s">
+      <choices>
+        <choice value="none" />
+        <choice value="ctrl" />
+        <choice value="alt" />
+        <choice value="shift" />
+        <choice value="super" />
+      </choices>
+      <default>'shift'</default>
+      <summary>Required modifier key</summary>
+      <description>Only change the color temperature on scroll while this modifier key is held down. "none" means scrolling on the top bar always changes it.</description>
+    </key>
+    <key name="invert-scroll" type="b">
+      <default>false</default>
+      <summary>Invert direction</summary>
+      <description>By default scrolling up makes the screen warmer and scrolling down makes it cooler (towards neutral). When set, the direction is reversed.</description>
+    </key>
+    <key name="step" type="i">
+      <range min="50" max="1000" />
+      <default>250</default>
+      <summary>Step</summary>
+      <description>How many Kelvin to change the color temperature by on each scroll tick.</description>
+    </key>
+    <key name="min-temperature" type="i">
+      <range min="1000" max="6000" />
+      <default>1700</default>
+      <summary>Maximum warmth</summary>
+      <description>The lowest (warmest) color temperature in Kelvin that scrolling can reach. Neutral is 6500 K.</description>
+    </key>
+
+    <!-- Internal state: the user's own Night Light settings, saved while the extension overrides them. -->
+    <key name="saved-state-valid" type="b">
+      <default>false</default>
+      <summary>Night Light settings are overridden</summary>
+      <description>Internal. True while the extension has overridden Night Light and the saved-* keys hold the original values.</description>
+    </key>
+    <key name="saved-enabled" type="b">
+      <default>false</default>
+      <summary>Original night-light-enabled</summary>
+      <description>Internal.</description>
+    </key>
+    <key name="saved-schedule-automatic" type="b">
+      <default>true</default>
+      <summary>Original night-light-schedule-automatic</summary>
+      <description>Internal.</description>
+    </key>
+    <key name="saved-schedule-from" type="d">
+      <default>20.0</default>
+      <summary>Original night-light-schedule-from</summary>
+      <description>Internal.</description>
+    </key>
+    <key name="saved-schedule-to" type="d">
+      <default>6.0</default>
+      <summary>Original night-light-schedule-to</summary>
+      <description>Internal.</description>
+    </key>
+    <key name="saved-temperature" type="u">
+      <default>2700</default>
+      <summary>Original night-light-temperature</summary>
+      <description>Internal.</description>
+    </key>
+    <key name="saved-active" type="b">
+      <default>false</default>
+      <summary>Night Light was active when overridden</summary>
+      <description>Internal. Whether the user's own Night Light schedule was active when the extension took over.</description>
+    </key>
+  </schema>
+</schemalist>
