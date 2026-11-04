@@ -53,7 +53,7 @@ export default class WarmthScrollerExtension extends Extension {
       this.step = this.settings.get_int("step");
     };
     const setDirection = () => {
-      this.direction = this.settings.get_boolean("invert-scroll");
+      this.full_bar_warm = this.settings.get_boolean("full-bar-is-warm");
     };
     const setModifier = () => {
       this.modifier_mask = ModifierMasks[this.settings.get_string("modifier-key")] ?? 0;
@@ -70,7 +70,7 @@ export default class WarmthScrollerExtension extends Extension {
 
     this._settingsIds = [
       this.settings.connect("changed::step", setStep),
-      this.settings.connect("changed::invert-scroll", setDirection),
+      this.settings.connect("changed::full-bar-is-warm", setDirection),
       this.settings.connect("changed::modifier-key", setModifier),
       this.settings.connect("changed::min-temperature", setMinimum),
     ];
@@ -304,8 +304,11 @@ export default class WarmthScrollerExtension extends Extension {
         return Clutter.EVENT_PROPAGATE;
     }
 
-    // Scrolling up (dir = +1) means warmer, i.e. a lower temperature.
-    const warmer = this.direction ? dir < 0 : dir > 0;
+    // The scroll direction follows the OSD bar: scrolling up fills the bar.
+    // By default a full bar is neutral (6500 K), so scrolling up is cooler and
+    // scrolling down is warmer. With "full-bar-is-warm", a full bar is the
+    // warmest temperature and scrolling up is warmer.
+    const warmer = this.full_bar_warm ? dir > 0 : dir < 0;
     const current = this._current_temperature();
     let temp;
     if (warmer) temp = current <= this.min_temp ? current : Math.max(current - this.step, this.min_temp);
@@ -322,7 +325,9 @@ export default class WarmthScrollerExtension extends Extension {
 
   _show_osd(temp) {
     const span = NEUTRAL - this.min_temp;
-    const level = span > 0 ? Math.clamp((NEUTRAL - temp) / span, 0, 1) : 0;
+    const warmth = span > 0 ? Math.clamp((NEUTRAL - temp) / span, 0, 1) : 0;
+    // Default: full bar = neutral, empty bar = maximum warmth.
+    const level = this.full_bar_warm ? warmth : 1 - warmth;
     const icon = Gio.Icon.new_for_string("night-light-symbolic");
     const label = `${Math.round(temp)} K`;
     if (SHELL_MAJOR >= 49) {

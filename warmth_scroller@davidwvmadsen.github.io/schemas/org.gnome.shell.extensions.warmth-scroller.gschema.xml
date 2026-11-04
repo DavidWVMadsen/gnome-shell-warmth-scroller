@@ -13,10 +13,10 @@
       <summary>Required modifier key</summary>
       <description>Only change the color temperature on scroll while this modifier key is held down. "none" means scrolling on the top bar always changes it.</description>
     </key>
-    <key name="invert-scroll" type="b">
+    <key name="full-bar-is-warm" type="b">
       <default>false</default>
-      <summary>Invert direction</summary>
-      <description>By default scrolling up makes the screen warmer and scrolling down makes it cooler (towards neutral). When set, the direction is reversed.</description>
+      <summary>Full bar is warmest</summary>
+      <description>By default a full on-screen bar means neutral (6500 K): scrolling down shrinks the bar and makes the screen warmer, scrolling up makes it cooler. When set, a full bar means the warmest temperature and scrolling up makes the screen warmer.</description>
     </key>
     <key name="step" type="i">
       <range min="50" max="1000" />

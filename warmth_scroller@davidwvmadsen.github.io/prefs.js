@@ -37,16 +37,16 @@ export default class WarmthScrollerExtensionPreferences extends ExtensionPrefere
         });
         group.add(modifierRow);
 
-        // Invert scroll direction
-        const invertRow = new Adw.ActionRow({
-            title: 'Invert scroll direction',
-            subtitle: 'By default scrolling up makes the screen warmer',
+        // Bar direction
+        const barRow = new Adw.ActionRow({
+            title: 'Full bar is warmest',
+            subtitle: 'By default a full bar is neutral (6500 K) and scrolling down makes the screen warmer. When on, a full bar is the warmest and scrolling up makes the screen warmer',
         });
-        const invertSwitch = new Gtk.Switch({valign: Gtk.Align.CENTER});
-        settings.bind('invert-scroll', invertSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
-        invertRow.add_suffix(invertSwitch);
-        invertRow.activatable_widget = invertSwitch;
-        group.add(invertRow);
+        const barSwitch = new Gtk.Switch({valign: Gtk.Align.CENTER});
+        settings.bind('full-bar-is-warm', barSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
+        barRow.add_suffix(barSwitch);
+        barRow.activatable_widget = barSwitch;
+        group.add(barRow);
 
         // Step
         const stepRow = new Adw.SpinRow({

@@ -1,13 +1,13 @@
 # Warmth Scroller for GNOME Shell
 
-Hold a modifier key (Shift by default) and scroll on the GNOME top bar to make the screen warmer or cooler, with GNOME's standard on-screen display (Night Light icon, a bar that fills as the screen gets warmer, and the temperature in Kelvin).
+Hold a modifier key (Shift by default) and scroll on the GNOME top bar to make the screen warmer or cooler, with GNOME's standard on-screen display (Night Light icon, a bar that is full at neutral and shrinks as the screen gets warmer, and the temperature in Kelvin).
 
 It is a sibling of [Brightness Scroller](https://github.com/DavidWVMadsen/gnome-shell-brightness-scroller) and works on GNOME Shell 45–51.
 
 ## Settings
 
 - **Required modifier key**: None, Ctrl, Alt, Shift (default) or Super.
-- **Invert scroll direction**: by default scrolling up is warmer and scrolling down is cooler.
+- **Full bar is warmest** (`full-bar-is-warm`, default off): by default a full bar means neutral (6500 K); scrolling down shrinks the bar and makes the screen warmer, scrolling up makes it cooler. Turn it on for the opposite: a full bar means the warmest temperature and scrolling up makes the screen warmer. Scroll direction and bar level always follow each other.
 - **Step**: Kelvin per scroll tick (50–1000, default 250).
 - **Maximum warmth**: the warmest temperature scrolling can reach (1000–6000 K, default 1700 K). Neutral is 6500 K.
 
